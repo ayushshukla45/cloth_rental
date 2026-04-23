@@ -59,7 +59,7 @@ const ProductDisplay = (props) => {
         </div>
 
         <div className="productdisplay-right-description">
-          Elevate your style effortlessly with our premium collection of clothing. Rent it for your special occasion and experience high fashion sustainably! 
+          {product.description || "Elevate your style effortlessly with our premium collection of clothing. Rent it for your special occasion and experience high fashion sustainably!"}
         </div>
 
         {/* Date Selection Section */}
@@ -80,7 +80,7 @@ const ProductDisplay = (props) => {
         <div className="productdisplay-right-size">
           <h1>Select Size</h1>
           <div className="productdisplay-right-sizes">
-            {["S", "M", "L", "XL", "XXL"].map((size) => (
+            {(product.sizes || ["S", "M", "L", "XL", "XXL"]).map((size) => (
               <div
                 key={size}
                 className={selectedSize === size ? "selected-size" : ""}
