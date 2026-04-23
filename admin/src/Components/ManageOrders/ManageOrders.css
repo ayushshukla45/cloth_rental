@@ -1,0 +1,53 @@
+.manage-orders {
+    padding: 30px 50px;
+    width: 100%;
+}
+
+.manage-orders h1 {
+    font-size: 30px;
+    font-weight: 600;
+}
+
+.orders-container {
+    margin-top: 30px;
+}
+
+.orders-format-main {
+    display: grid;
+    grid-template-columns: 1fr 2fr 2fr 1fr 1fr 1fr;
+    align-items: center;
+    gap: 10px;
+    padding: 20px 0px;
+    color: #454545;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.orders-format {
+    font-weight: 400;
+}
+
+.order-products-list p {
+    margin: 0;
+    font-size: 13px;
+    color: #555;
+}
+
+.status-booked { color: #f39c12; }
+.status-rented { color: #3498db; }
+.status-returned { color: #2ecc71; }
+.status-out-for-delivery { color: #9b59b6; }
+.status-cancelled { color: #e74c3c; }
+
+.order-actions select {
+    padding: 5px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+}
+
+@media (max-width: 800px) {
+    .orders-format-main {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+}
