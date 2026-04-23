@@ -25,11 +25,13 @@ app.use('/images', express.static('upload/images'));
 const productRoutes = require('./routes/productRoutes');
 const userRoutes = require('./routes/userRoutes');
 const orderRoutes = require('./routes/orderRoutes');
+const paymentRoutes = require('./routes/paymentRoutes');
 
 // Use Routes
 app.use('/products', productRoutes);
 app.use('/users', userRoutes);
 app.use('/orders', orderRoutes);
+app.use('/payments', paymentRoutes);
 
 // Image Upload Endpoint (kept in index for simplicity or moved to a utility)
 const multer = require("multer");
