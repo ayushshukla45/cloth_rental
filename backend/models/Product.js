@@ -9,6 +9,10 @@ const ProductSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    description: {
+        type: String,
+        default: "",
+    },
     image: {
         type: String,
         required: true,
@@ -16,6 +20,10 @@ const ProductSchema = new mongoose.Schema({
     category: {
         type: String,
         required: true,
+    },
+    sizes: {
+        type: [String],
+        default: ["S", "M", "L", "XL", "XXL"],
     },
     new_price: {
         type: Number,
