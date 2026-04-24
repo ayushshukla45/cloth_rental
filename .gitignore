@@ -35,6 +35,6 @@ Thumbs.db
 rule.md
 
 # Test artifacts
-selenium-tests/node_modules
+backend/tests/node_modules
 
 

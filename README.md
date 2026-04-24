@@ -75,7 +75,7 @@ A premium **MERN Stack** e-commerce application designed for **Cloth Renting**. 
 
 4.  **Admin Panel Setup**
     ```bash
-    cd ../admin
+    cd ../frontend/admin
     npm install
     npm run dev
     ```
@@ -89,7 +89,7 @@ A premium **MERN Stack** e-commerce application designed for **Cloth Renting**. 
 *   [**Project Overview Video**](LINK_TO_BE_ADDED)
 
 ### 📊 Documentation
-*   Detailed project report and diagrams can be found in the `/docs` folder.
+*   Detailed project report and diagrams can be found in the `/backend/docs` folder.
 
 ---
 
