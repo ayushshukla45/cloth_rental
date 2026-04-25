@@ -23,7 +23,7 @@ const ShopContextProvider = (props) => {
                 },
                 body: "",
             }).then((response) => response.json())
-            .then((data) => setCartItems(data));
+            .then((data) => setCartItems(Array.isArray(data) ? data : []));
         }
     }, []);
 
@@ -31,13 +31,16 @@ const ShopContextProvider = (props) => {
         const newItem = { productId, quantity, startDate, endDate };
         
         setCartItems((prev) => {
-            const existingIndex = prev.findIndex(item => item.productId === productId && item.startDate === startDate && item.endDate === endDate);
+            // Safety check: if prev is not an array (legacy data), reset it to an empty array
+            const currentCart = Array.isArray(prev) ? prev : [];
+            
+            const existingIndex = currentCart.findIndex(item => item.productId === productId && item.startDate === startDate && item.endDate === endDate);
             if (existingIndex > -1) {
-                const updated = [...prev];
+                const updated = [...currentCart];
                 updated[existingIndex].quantity += quantity;
                 return updated;
             }
-            return [...prev, newItem];
+            return [...currentCart, newItem];
         });
 
         if (localStorage.getItem('auth-token')) {
@@ -56,7 +59,10 @@ const ShopContextProvider = (props) => {
     };
 
     const removeFromCart = (productId) => {
-        setCartItems((prev) => prev.filter(item => item.productId !== productId));
+        setCartItems((prev) => {
+            const currentCart = Array.isArray(prev) ? prev : [];
+            return currentCart.filter(item => item.productId !== productId);
+        });
 
         if (localStorage.getItem('auth-token')) {
             fetch(`${API_BASE_URL}/users/removefromcart`, {
@@ -75,6 +81,7 @@ const ShopContextProvider = (props) => {
 
     const getTotalCartAmount = () => {
         let totalAmount = 0;
+        if (!Array.isArray(cartItems)) return 0;
         cartItems.forEach((item) => {
             let itemInfo = all_product.find((product) => product.id === Number(item.productId));
             if (itemInfo) {
@@ -90,6 +97,7 @@ const ShopContextProvider = (props) => {
     };
 
     const getTotalCartItems = () => {
+        if (!Array.isArray(cartItems)) return 0;
         return cartItems.reduce((acc, item) => acc + item.quantity, 0);
     };
 

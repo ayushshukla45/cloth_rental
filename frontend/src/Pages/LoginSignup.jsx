@@ -27,71 +27,45 @@ const LoginSignup = () => {
         alert("Username is required for signup");
         return false;
       }
-      if (username.includes('@')) {
-        alert("Username cannot be an email");
-        return false;
-      }
-    }
-
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailPattern.test(email)) {
-      alert("Invalid email format");
-      return false;
-    }
-
-    const allowedDomains = [
-      "gmail.com",
-      "yahoo.com",
-      "outlook.com",
-      "icloud.com",
-    ];
-    const emailDomain = email.split('@')[1];
-    if (!allowedDomains.includes(emailDomain)) {
-      alert("This email domain is not authorized to log in.");
-      return false;
-    }
-
-    const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]).{6,}$/;
-    if (!passwordPattern.test(password)) {
-      alert("Password must have at least 1 uppercase, 1 lowercase, 1 number, 1 special character and be 6+ characters.");
-      return false;
     }
 
     return true;
   };
 
   const login = async () => {
-    let responseData;
-    await fetch('http://localhost:4000/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(formData)
-    })
-      .then(res => res.json())
-      .then(data => responseData = data);
+    console.log("Login function called with:", formData.email);
+    try {
+      let responseData;
+      await fetch('http://localhost:4000/users/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
+      })
+        .then(res => res.json())
+        .then(data => responseData = data);
 
-    if (responseData.success) {
-      localStorage.setItem('auth-token', responseData.token);
-      localStorage.setItem('user-role', responseData.role); // Save role
-      if (responseData.role === 'admin') {
-        window.location.replace('/admin');
+      console.log("Login response:", responseData);
+
+      if (responseData.success) {
+        localStorage.setItem('auth-token', responseData.token);
+        localStorage.setItem('user-role', responseData.role); // Save role
+        if (responseData.role === 'admin') {
+          window.location.replace('/admin');
+        } else {
+          window.location.replace('/');
+        }
       } else {
-        window.location.replace('/');
+        alert(responseData.errors);
       }
-    } else {
-      if (responseData.errors === "Please sign up before logging in.") {
-        alert("Please sign up before logging in.");
-      } else if (responseData.errors === "Wrong password") {
-        alert("Incorrect password. Please try again.");
-      } else {
-        alert("Please sign up before logging in.");
-      }
+    } catch (err) {
+      console.error("Frontend Login Error:", err);
+      alert("Could not connect to server");
     }
   };
 
   const signup = async () => {
     let responseData;
-    await fetch('http://localhost:4000/signup', {
+    await fetch('http://localhost:4000/users/signup', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(formData)

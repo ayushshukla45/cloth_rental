@@ -8,7 +8,9 @@ const fetchUser = require('../middleware/auth');
 // API for creating an order (Booking)
 router.post('/placeorder', fetchUser, async (req, res) => {
     try {
+        console.log("Order placement attempt from user:", req.user.id);
         const { products, totalAmount } = req.body;
+        console.log("Products in order:", JSON.stringify(products, null, 2));
         
         const order = new Order({
             userId: req.user.id,

@@ -99,7 +99,7 @@ const CartItems = () => {
             </div>
             <hr />
 
-            {cartItems.map((item, index) => {
+            {Array.isArray(cartItems) && cartItems.map((item, index) => {
                 const product = all_product.find((p) => p.id === Number(item.productId));
                 if (!product) return null;
                 
@@ -160,7 +160,7 @@ const CartItems = () => {
                         <div className="checkout-modal-content">
                             <h2>Checkout Summary</h2>
                             <div className="modal-scroll-area">
-                                {cartItems.map((item, idx) => {
+                                {Array.isArray(cartItems) && cartItems.map((item, idx) => {
                                     const p = all_product.find((product) => product.id === Number(item.productId));
                                     return (
                                         <div key={idx} className="modal-item">

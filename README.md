@@ -45,40 +45,55 @@ A premium **MERN Stack** e-commerce application designed for **Cloth Renting**. 
 
 ## 🚀 Getting Started
 
-### Prerequisites
-*   Node.js (v16+)
-*   MongoDB Atlas Account
-*   NPM / Yarn
+### 1. Prerequisites
+- Node.js (v16+)
+- MongoDB Atlas Account
 
-### Installation
+### 2. Installation
+```bash
+# Install backend dependencies
+cd backend
+npm install
 
-1.  **Clone the project**
-    ```bash
-    git clone <YOUR_REPOSITORY_LINK>
-    cd cloth-rental-ecommerce
-    ```
+# Install frontend dependencies
+cd frontend
+npm install
+```
 
-2.  **Backend Setup**
-    ```bash
-    cd backend
-    npm install
-    # Create a .env file and add your MONGO_URI
-    npm start
-    ```
+### 3. Environment Setup
+Create a `.env` file in the `backend/` directory:
+```env
+PORT=4000
+MONGODB_URI=your_mongodb_uri
+JWT_SECRET=your_jwt_secret
+```
 
-3.  **Frontend Setup**
-    ```bash
-    cd ../frontend
-    npm install
-    npm start
-    ```
+### 4. Running the Application
+Open two separate terminals:
 
-4.  **Admin Panel Setup**
-    ```bash
-    cd ../frontend/admin
-    npm install
-    npm run dev
-    ```
+**Terminal 1: Backend**
+```bash
+cd backend
+node index.js
+```
+
+**Terminal 2: Frontend**
+```bash
+cd frontend
+npm start
+```
+
+### 5. Accessing the Application
+- **Customer Shop:** `http://localhost:3000`
+- **Admin Dashboard:** Log in with an account that has `role: "admin"` in the database.
+
+---
+
+## 🛡️ Role-Based Access Control (RBAC)
+The application uses a unified login system. 
+- **Users:** Can browse items, rent clothes, and view their order history.
+- **Admins:** Can add/remove products and manage all rental bookings. Admin access is restricted to users with the `admin` role in MongoDB.
+
 
 ---
 
